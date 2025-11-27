@@ -84,14 +84,20 @@ To ensure full driver compatibility and avoid audio stack instability:
 
 ESP32-S3: Arduino Core 3.3.3 (recommended)
 
-ESP32 (classic): Arduino Core 3.3.0
+ESP32 (classic): Arduino Core 3.3.3 (recommended)
 
-IDF MOD Compatibility
+## 🔧 IDF MOD Compatibility
 
-For ESP32 devices using Arduino Core 3.3.0, the included
-IDF 5.4 MOD (Audio_IDF_MOD) remains compatible because this core version still contains the older ESP32-specific audio libraries that the fix patches were designed for.
+The required IDF patches for high-bitrate audio playback are included in the  
+`Audio_IDF_MOD/CORE_3.3.3-IDF_ver5.5` directory.
 
-(ESP32-S3 builds do not use this ESP32-only fix.)
+Separate versions are provided for:
+
+- **ESP32**
+- **ESP32-S3**
+
+These patches must be applied when using **Arduino Core 3.3.3**, as both platforms
+still rely on the corresponding ESP-IDF audio components that the modifications were designed for.
 
 ## 🎚 VU Meter Calibration
 
