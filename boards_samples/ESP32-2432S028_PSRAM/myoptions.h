@@ -20,7 +20,9 @@
 
 /******************************************/
 
-#define BRIGHTNESS_PIN       21
+#define BRIGHTNESS_PIN      21
+#define LIGHT_SENSOR        34
+#define AUTOBACKLIGHT_MAX   1024
 
 #define RSSI_DIGIT           false
 
@@ -39,14 +41,14 @@
 #define SDC_CS        5              /* Chip Select */
 
 /* Remote control sensor pin */
-#define IR_PIN               34
-#define IR_TIMEOUT           50              /*  see kTimeout description in IRremoteESP8266 example */
+//#define IR_PIN               34
+//#define IR_TIMEOUT           50              /*  see kTimeout description in IRremoteESP8266 example */
 
 /* I2S DAC */
 
-#define I2S_DOUT             27    //4
-#define I2S_BCLK             4   //22
-#define I2S_LRC              22   //27
+#define I2S_DOUT             27 
+#define I2S_BCLK              4 
+#define I2S_LRC              22 
 
 /* Encoder1 */
 #define ENC_BTNR             26
