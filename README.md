@@ -115,45 +115,36 @@ Only the following additional or modified options need to be applied for yoRadio
 
 #define AM_PM_STYLE          // Enable 12-hour clock format (AM/PM)
 
+#define MetaStationNameSkip  // Enable to display the station name from the playlist instead of the name coming from META data
+
+#define IMPERIALUNIT // Enable the use of imperial units for icon and text widgets
+
 
 ## 🇺🇸 US Regional Settings (Time Format & Weather Units)
 
 yoRadio Fusion includes optional support for **US-style time and weather formats**.
-To enable these, three files must be adjusted:
+~~To enable these, three files must be adjusted:~~
 
-- `myoptions.h`
+~~- `myoptions.h`~~
 
-- `timekeeper.cpp`
+~~- `timekeeper.cpp`~~
 
-- `displayL10n_en.h`
+~~- `displayL10n_en.h`~~
 
-### Step-by-Step Instructions
+~~### Step-by-Step Instructions~~
 
-You will need to **enable** some sections and **comment out** others inside these files.
-The exact lines are marked with comments in the source code.  
+~~You will need to **enable** some sections and **comment out** others inside these files.~~
+~~The exact lines are marked with comments in the source code.~~  
 
 `yoRadio\myoptions.h`
 
-**us date format:** myoptions.h add extra line >> #define USDATE // Enable MM/DD/YYYY date format (US style)
+**us date format:** myoptions.h add extra line >> **#define USDATE** // Enable MM/DD/YYYY date format (US style)
 
-`yoRadio\locale\displayL10n_en.h`
+**imperial units:** myoptions.h add extra line >> **#define IMPERIALUNIT** // Enable the use of imperial units for icon and text widgets
 
-Inside `displayL10n_en.h`, the section marked as **EXT_WEATHER** contains both  
-**EU standards** and **US standards** grouped into clearly separated blocks.
+~~`yoRadio\locale\displayL10n_en.h`~~
 
-Comment out the entire EU standards block
-
-Uncomment the entire US standards block
-
-Change the weather unit mode to “imperial” **const char weatherUnits[] PROGMEM = "imperial";**  /* standard, metric, imperial */
-
-`yoRadio\src\core\timekeeper.cpp`
-
-The basic task is the same as above:
-
-Comment out the entire EU standards block
-
-Uncomment the entire US standards block
+~~`yoRadio\src\core\timekeeper.cpp`~~
 
 ## 🎚 VU Meter Calibration
 
@@ -373,6 +364,9 @@ v0.3.5 – 2025-12-08
  • TTS clock BUG fix
  
  • Weather icon placement on 480×xxx and 320×xxx displays
+
+ ![JC4827W543_weather](https://github.com/user-attachments/assets/a4e87d51-e22a-4b37-8219-0c410be00149)
+
  
 
 ## 🙌 Credits
