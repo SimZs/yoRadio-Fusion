@@ -49,6 +49,40 @@ TF/SD modules, IR receivers, rotary encoders
 - ST7789 284x76
 - ST7789 240x240
 - ST7789 320x170
+- ST7735 160x128
+
+## 📌 Version History / Changelog
+
+## v0.3.9 – 2026-01-16
+
+ • optimizing websocket messages and http endpoint communications
+ 
+ • new display type added: ST7735 (black_conf) 160x128px
+
+  ![Blue_pcb](https://github.com/user-attachments/assets/7e7879b1-d911-456d-a215-66f7a8eb9dd6)
+ 
+ • Pressure correction converts sea-level pressure to local pressure on WebUI
+
+ <img width="585" height="716" alt="2026-01-16_13-03-01" src="https://github.com/user-attachments/assets/0f920142-4e18-43fe-b076-318acc7c285a" />
+
+ To ensure correct display of air pressure data, the pressure slope correction factor has been moved to the WebUI.
+ 
+ (Pressure slope: linear gradient, typically ~0.11–0.12 hPa per meter (within normal weather ranges, at low to medium altitudes))
+ 
+
+## v0.3.5 – 2025-12-08
+
+ • SD reading BUG fix (special thanks to Tamás Várai)
+ 
+ • Audio library version update (special thanks to Tamás Várai)
+ 
+ • Browser v2 integration (special thanks to Mirosław Bubka)
+ 
+ • TTS clock BUG fix
+ 
+ • Weather icon placement on 480×xxx and 320×xxx displays
+
+ ![JC4827W543_weather](https://github.com/user-attachments/assets/a4e87d51-e22a-4b37-8219-0c410be00149)
 
 
 ## ⚠️ Important: SD Card Compatibility (Required File Replacement)
@@ -351,31 +385,6 @@ yoRadio-Fusion/
 8. After boot, connect the device to Wi-Fi (or use AP mode) and open the  
    **Web UI** in your browser using the device’s IP address.
 
-## 📌 Version History / Changelog
-
-v0.3.9 – 2026-01-16
-
- • optimizing websocket messages and http endpoint communications
- 
- • new display type added: ST7735 (black_conf) 160x128px
- 
- • To ensure correct display of air pressure data, the pressure slope correction factor has been moved to the WebUI. (Pressure slope: linear gradient, typically ~0.11–0.12 hPa per meter (within normal weather ranges, at low to medium altitudes))
-
- 
- 
-v0.3.5 – 2025-12-08
-
- • SD reading BUG fix (special thanks to Tamás Várai)
- 
- • Audio library version update (special thanks to Tamás Várai)
- 
- • Browser v2 integration (special thanks to Mirosław Bubka)
- 
- • TTS clock BUG fix
- 
- • Weather icon placement on 480×xxx and 320×xxx displays
-
- ![JC4827W543_weather](https://github.com/user-attachments/assets/a4e87d51-e22a-4b37-8219-0c410be00149)
 
 ## 🙌 Credits
 
