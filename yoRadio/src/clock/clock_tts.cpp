@@ -74,6 +74,14 @@ static inline void clock_tts_announcement(char* buf, size_t buflen, int hour, in
     snprintf(buf, buflen, "Este ora %d:%02d.", hour, min);
   else if (strncmp(lang, "hu", 2) == 0)
     snprintf(buf, buflen, "A pontos idő %d:%02d.", hour, min);
+  else if (strncmp(lang, "pl", 2) == 0)
+    snprintf(buf, buflen, "Jest godzina %d:%02d.", hour, min);
+  else if (strncmp(lang, "fr", 2) == 0)
+    snprintf(buf, buflen, "Il est %d:%02d.", hour, min);
+  else if (strncmp(lang, "gr", 2) == 0)
+    snprintf(buf, buflen, "I ora einai %d:%02d.", hour, min);
+  else if (strncmp(lang, "nl", 2) == 0)
+    snprintf(buf, buflen, "De tijd %d:%02d.", hour, min);
   else
     snprintf(buf, buflen, "The time is %d:%02d.", hour, min);
 }
