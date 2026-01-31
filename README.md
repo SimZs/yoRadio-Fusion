@@ -53,6 +53,12 @@ TF/SD modules, IR receivers, rotary encoders
 
 ## 📌 Version History / Changelog
 
+## v0.4.4 – 2026-01-31
+
+ • This build adds **DLNA playlist browsing and playback** support to yoRadio.
+ 
+ ➡️ [Read the DLNA documentation] ([DLNA setup/readme.md](https://github.com/SimZs/yoRadio-Fusion/tree/main/DLNA%20setup))
+
 ## v0.4.2 – 2026-01-26
 
  • Clock widget – alignment of the seconds fonts to match the clock font
