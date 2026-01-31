@@ -7,16 +7,22 @@ tested primarily with **Synology NAS**.
 Enable DLNA support and configure your DLNA server:
 
 #define USE_DLNA
-#define dlnaHost "192.168.180.122"   // DLNA server IP address
-#define dlnaIDX  21                 // Root MUSIC container ID (Synology default is usually 21)
 
-2. DLNA Browser Overview
+#define dlnaHost "192.168.180.122"   // DLNA server IP address
+
+#define dlnaIDX  21                 // Root MUSIC container ID (Synology default is usually 21)
+<img width="796" height="128" alt="2026-01-31_19-50-16" src="https://github.com/user-attachments/assets/24db8029-913e-41ec-bd78-a5b1f9f67a81" />
+
+
+## 2. DLNA Browser Overview
 
 The DLNA browser works in two levels:
 
 📁 Category List (Containers)
 
 Displays DLNA folders / categories (e.g. Artist, Album, Genre)
+
+<img width="1205" height="589" alt="2026-01-31_20-16-44" src="https://github.com/user-attachments/assets/c3359638-2a13-4de7-9a93-b1890d5baee4" />
 
 Selecting a category loads its contents
 
@@ -26,13 +32,31 @@ Containers without playable tracks are handled gracefully
 
 Displays playable audio items inside the selected container
 
-Clicking an item starts playback immediately
+<img width="1268" height="698" alt="2026-01-31_20-18-19" src="https://github.com/user-attachments/assets/a338e6dd-8fa6-447d-a336-ec901c0d9f0e" />
 
-Navigation is non-blocking and safe to use during playback.
+#### Playlist Build Rules
 
-3. Building a DLNA Playlist
+- **Build** and **Append** actions are available **only if the current container actually contains tracks**
+  
+- Containers with **subfolders only** (no direct tracks) cannot be built or appended
+  
+- This prevents creating empty or invalid playlists
 
-Inside the DLNA browser:
+#### Pagination & Large Containers
+
+- The item list is loaded in **pages of 200 entries**
+  
+- If a container contains more than 200 tracks or sub-containers:
+  
+  - A **Load more** option appears at the bottom of the list
+    
+  - Loading the next page **appends** new items to the existing list
+    
+  - Previously loaded items remain visible and selectable
+    
+<img width="1232" height="613" alt="2026-01-31_20-24-52" src="https://github.com/user-attachments/assets/29a5b873-6e36-4010-9df4-422e374dcbc2" />
+
+## 3. Building a DLNA Playlist
 
 Build DLNA Playlist
 
@@ -50,7 +74,7 @@ Current playback position is preserved
 
 Build operations run asynchronously and do not freeze the UI.
 
-4. Playlist Source Selection
+## 4. Playlist Source Selection
 
 Two explicit buttons control the active playlist source:
 
@@ -60,7 +84,6 @@ Activates the DLNA playlist as the current source
 
 Playback resumes automatically only if audio was playing before
 
-DLNA playlist index is preserved between activations
 
 ▶️ Use WEB Playlist
 
@@ -71,17 +94,7 @@ WEB playlist index and state are preserved independently from DLNA
 👉 DLNA and WEB playlists are fully independent:
 switching sources does not reset the other playlist.
 
-5. Playback Behavior (Important Rules)
-
-DLNA playlist build does not start playback automatically
-
-User interaction (clicking a track or activating a playlist) always has priority
-
-Track selection in DLNA works exactly like in WEB mode
-
-No automatic index jumping or forced resets occur during normal use
-
-6. Current Status
+## 5. Current Status
 
 ✅ Stable playback switching (WEB ↔ DLNA)
 
