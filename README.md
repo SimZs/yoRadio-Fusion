@@ -144,9 +144,57 @@ Select the folder that matches your display type (for example: **ILI9341**).
 
 From the selected folder copy the file: **platformio.ini** into the project folder: **C:\platformio\yoRadio**
 
-Copy your own **myoptions.h** file into the project folder: **C:\platformio\yoRadio**, or use the one in the Setup samples folder, but adapt it to your own hardware! 
+Copy your own **myoptions.h** file into the project folder: **C:\platformio\yoRadio**, or use the one in the Setup samples folder, but adapt it to your own hardware!
 
+**The project folder is now ready for use!**
 
+---
+
+### 6. Back to VSCode PlatformIO
+
+In VSCode click the **PlatformIO icon** (ant head) in the left sidebar.
+
+Select **Pick a folder** and open: C:\platformio\yoRadio
+
+<a href="https://github.com/user-attachments/assets/41ff6090-ea1b-4b8f-8124-35ab3ff44cbb">
+  <img src="https://github.com/user-attachments/assets/41ff6090-ea1b-4b8f-8124-35ab3ff44cbb" width="400">
+</a>
+
+After opening the project, wait until PlatformIO finishes preparing the environment and installing all required tools and dependencies for the project.
+
+This process may take **5–10 minutes** on the first run.
+
+<a href="https://github.com/user-attachments/assets/56afa0d7-f8e1-432d-a8b9-19814817e61f">
+  <img src="https://github.com/user-attachments/assets/56afa0d7-f8e1-432d-a8b9-19814817e61f" width="400">
+</a>
+
+The setup is complete when there are no more PlatformIO messages in the bottom status bar or in the notification panel on the right side of VSCode.
+
+### 7. Install the pioarduino Platform
+
+The environment is now ready, however **yoRadio Fusion uses the pioarduino platform**, which PlatformIO does not install automatically during the first setup.
+
+Close **VSCode**, then start it again.
+
+When the project loads, VSCode will detect the missing **pioarduino** platform and prompt you to install it.
+
+Click **Install** and wait until the installation completes.
+
+<a href="https://github.com/user-attachments/assets/b54b6369-de44-412f-8393-35d9c97a4cbc">
+  <img src="https://github.com/user-attachments/assets/b54b6369-de44-412f-8393-35d9c97a4cbc" width="400">
+</a>
+
+After the installation is complete, restart **VSCode**.
+
+After restarting VSCode, the **PlatformIO icon** (ant head) will temporarily change to an **IC icon**.
+
+This indicates that PlatformIO is installing the **Arduino framework and toolchains** required by the project.
+
+Please wait until the installation finishes. This process may take **20–25 minutes**, so please be patient.
+
+<a href="https://github.com/user-attachments/assets/90b15a64-2678-4258-bc03-c425492bf3e8">
+  <img src="https://github.com/user-attachments/assets/90b15a64-2678-4258-bc03-c425492bf3e8" width="400">
+</a>
 
 </details>
 
