@@ -160,6 +160,14 @@ Higher values → smoother and less “snappy” transitions.
 
 ### Smoothing section
 
+**Smoothing Controls**  
+
+- `alphaUp` → smaller = slower rise, larger = faster
+
+- `alphaDown` → larger = slower decay
+- 
+- `peakUp / peakDown` → peak indicator sensitivity
+
 [⬆ Back to top](#top)
 
 ---
