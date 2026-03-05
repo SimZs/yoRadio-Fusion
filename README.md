@@ -29,6 +29,7 @@ https://github.com/e2002/yoradio
 - Play audio files on DLNA home network via web UI
 
 [⬆ Back to top](#top)
+
 ---
 
 ## 🖥 Supported Hardware
@@ -39,6 +40,7 @@ https://github.com/e2002/yoradio
 - **CST816** / GT911 / XPT2046 / Ft6x36 touch controllers
 
 [⬆ Back to top](#top)
+
 ---
 
 ## 📺 Supported Displays
@@ -55,6 +57,7 @@ https://github.com/e2002/yoradio
 - ST7735 160x128
 
 [⬆ Back to top](#top)
+
 ---
 
 ## 🚀 Getting Started
@@ -331,6 +334,7 @@ on the Settings page, in the Update Firmware menu:
 </a>
 
 [⬆ Back to top](#subtop)
+
 ---
 
 </details>
@@ -444,6 +448,8 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
  • Weather icon placement on 480×xxx and 320×xxx displays
 
  ![JC4827W543_weather](https://github.com/user-attachments/assets/a4e87d51-e22a-4b37-8219-0c410be00149)
+
+[⬆ Back to top](#top)
 
 ---
 
