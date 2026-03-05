@@ -89,6 +89,11 @@ Additional options:
 
 <img width="530" src="https://github.com/user-attachments/assets/54177b59-1017-409e-bbed-5d56d3632c72" />
 
+All parameters except colors are stored per layout.
+
+Only these options allow direct color configuration because all other colors are controlled by the theme.  
+
+Themes can be customized and uploaded separately.
 
 [⬆ Back to top](#top)
 
