@@ -1,13 +1,13 @@
 ## 🎨 Customize page
 <a name="top"></a>
 
-- [THEME](#-theme-sectiom)
-- [LAYOUT](#-layout-section)
-- [BANDS](#-bands-section)
-- [DYNAMICS](#-dinamics-section)
-- [SMOOTHING](#-smoothing-section)
-- [MISC](#-miscellaneous-section)
-- [TTS](#-tts-clock-section)
+- [THEME](#theme-sectiom)
+- [LAYOUT](#layout-section)
+- [BANDS](#bands-section)
+- [DYNAMICS](#dinamics-section)
+- [SMOOTHING](#smoothing-section)
+- [MISC](#miscellaneous-section)
+- [TTS](#tts-clock-section)
 
 ---
 
