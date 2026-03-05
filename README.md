@@ -68,6 +68,7 @@ https://github.com/e2002/yoradio
  ---
 
 Follow these steps to set up the development environment for **yoRadio**.
+Simply click on the images to enlarge them.
 
 ### 1. Install Git
 
@@ -107,7 +108,6 @@ Open VSCode and install the PlatformIO IDE extension.
 <a href="https://github.com/user-attachments/assets/a742fceb-4126-4d36-aa05-3f6ef462ba91">
   <img src="https://github.com/user-attachments/assets/a742fceb-4126-4d36-aa05-3f6ef462ba91" width="400">
 </a>
-Click to enlarge
 
 After installation restart VSCode.
 
@@ -116,6 +116,10 @@ After installation restart VSCode.
 </a>
 
 After restarting VSCode, wait until PlatformIO finishes installing the required toolchains and dependencies.
+
+<a href="https://github.com/user-attachments/assets/306eb958-1c4a-4460-b51f-1f5e6a6496f7">
+  <img src="https://github.com/user-attachments/assets/306eb958-1c4a-4460-b51f-1f5e6a6496f7" width="400">
+</a>
 
 ---
 
