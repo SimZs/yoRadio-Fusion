@@ -12,13 +12,10 @@ https://github.com/e2002/yoradio
 
 - [Features](#-features)
 - [Supported Hardware](#-supported-hardware)
-- [Firmware Installation](#firmware-installation)
-- [PlatformIO Setup Guide](#platformio-setup-guide)
-- [WiFi Configuration](#configure-wifi)
-- [Build and Upload Firmware](#build-and-upload-the-firmware)
-- [Web Interface](#web-interface)
-- [Useful Tools](#useful-tools)
-- [Credits](#credits)
+- [Supported Displays](#-supported-displays)
+- [Getting Started](#-getting-started)
+- [Version History](#-version-history--changelog)
+- [Credits](#-credits)
 
 ---
 
