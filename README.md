@@ -103,10 +103,17 @@ Install with default settings.
 ### 4. Install PlatformIO
 
 Open VSCode and install the PlatformIO IDE extension.
-<img width="1125" height="282" alt="2026-03-05_09-53-52" src="https://github.com/user-attachments/assets/a742fceb-4126-4d36-aa05-3f6ef462ba91" />
+
+<a href="https://github.com/user-attachments/assets/a742fceb-4126-4d36-aa05-3f6ef462ba91">
+  <img src="https://github.com/user-attachments/assets/a742fceb-4126-4d36-aa05-3f6ef462ba91" width="400">
+</a>
+Click to enlarge
 
 After installation restart VSCode.
-<img width="1125" height="166" alt="2026-03-05_07-01-14" src="https://github.com/user-attachments/assets/7216e432-b2e5-4aba-afcd-fed0c00f2eba" />
+
+<a href="https://github.com/user-attachments/assets/7216e432-b2e5-4aba-afcd-fed0c00f2eba">
+  <img src="https://github.com/user-attachments/assets/7216e432-b2e5-4aba-afcd-fed0c00f2eba" width="400">
+</a>
 
 After restarting VSCode, wait until PlatformIO finishes installing the required toolchains and dependencies.
 
