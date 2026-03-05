@@ -341,9 +341,45 @@ on the Settings page, in the Update Firmware menu:
 <details>
 <summary>🔗 Useful Links & Tools</summary>
 
-- Image converters  
-- SVG editor  
-- Flash tools  
+---
+
+### YoRadio-Controller
+
+***Android application*** to access the ëRadio web radio server.
+
+Supported Android versions: SDK 24–36 (Android 7 Nougat and above).
+
+Developed by: Tibor Botfai
+
+https://github.com/gidano/YoRadio-Controller
+
+---
+
+### Font & Icon creation tools
+
+**image2cpp**
+
+A simple tool to change images into byte arrays (I used it to create weather icons)
+
+https://javl.github.io/image2cpp/
+
+**Converting fonts from TrueType to Adafruit GFX**
+
+https://rop.nl/truetype2gfx/
+
+**Adafruit GFX Pixel font customiser**
+
+https://tchapi.github.io/Adafruit-GFX-Font-Customiser/
+
+---
+
+### Theme editors
+
+Online: https://vip-cxema.org/index.php/online-kalkulyatory/yoradio-redaktor-tem
+
+Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
+
+---
 
 </details>
 
