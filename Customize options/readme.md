@@ -1,10 +1,10 @@
 ## 🎨 Customize page
 <a name="top"></a>
 
-- [THEME](#theme-sectiom)
+- [THEME](#theme-section)
 - [LAYOUT](#layout-section)
 - [BANDS](#bands-section)
-- [DYNAMICS](#dinamics-section)
+- [DYNAMICS](#dynamics-section)
 - [SMOOTHING](#smoothing-section)
 - [MISC](#miscellaneous-section)
 - [TTS](#tts-clock-section)
