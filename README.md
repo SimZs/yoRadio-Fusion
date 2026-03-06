@@ -26,7 +26,7 @@ https://github.com/e2002/yoradio
 - Theme upload + customizable theme colors and custom features
 - Multi-language and regional support: EN, RU, UA, SK, RO, PL, NL, IT, GR, DE, CZ, HU (Developed by Tamás Várai)
 - Multilingual nameday system: UA, PL, NL, GR, DE, CZ, HU (Developed by Tamás Várai)
-- Play audio files on DLNA home network via web UI
+- Play audio files on ([DLNA](https://github.com/SimZs/yoRadio-Fusion/tree/main/DLNA%20setup)) home network via web UI
 
 [⬆ Back to top](#top)
 
