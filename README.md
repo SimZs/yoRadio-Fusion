@@ -234,9 +234,7 @@ yoRadio-main/Audio_IDF_MOD/
 
 This modification is required for **smooth playback of high-bitrate audio streams**.
 
-For more information, please read:
-
-[This](https://github.com/VaraiTamas/yoRadio/blob/main/Lib_tools/LIB_TOOLS.md)
+For more information, please read: [This documentation](https://github.com/VaraiTamas/yoRadio/blob/main/Lib_tools/LIB_TOOLS.md)
 
 ### 2. Display Font Fix
 
