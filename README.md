@@ -410,6 +410,8 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
 
 ## v0.5.8 – 2026-03-06
 
+**Full Erase Needed before upload!!**
+
  • Added **Czech language** support (Thnx to: Miroslav Tlustý)
  
  • Added **VU label indicator**
@@ -438,14 +440,19 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
  
  • **SDManager chaos resolved** – manual modification of SDManager files is no longer required
  
- • **OTA partition layout** applied to support firmware updates via OTA
+ • **OTA partition layout** applied to support firmware updates via OTA (Thnx to: nvalw)
 
  • Added **PlatformIO step-by-step installation guide**
 
- • Custom Fusion logo graphic by Scott Barber
- 
- • Hardware descriptions and setup guides will be added **progressively as time allows**
- 
+```
+Hardware descriptions and setup guides will be added **progressively as time allows**
+
+Custom Fusion logo graphic created by Scott Barber & Gemini & chatGPT 😄
+
+I don't plan to change the `config_struct` in the near future, 
+
+so upcoming updates should be possible via **OTA**, without requiring a **full erase** 
+``` 
 
 ## v0.4.4 – 2026-01-31
 
