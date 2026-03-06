@@ -267,6 +267,36 @@ Stops playback in **internet radio mode** when the playback buffer runs out, the
 
 ### TTS clock section
 
+**Enable clock (TTS)**
+
+When enabled, the radio announces the **current time** at the configured interval.
+
+To use this feature, the **Google TTS language** must be set in the `myoptions.h` file before uploading the firmware.
+
+Example:
+
+```cpp
+#define CLOCK_TTS_LANGUAGE "hu" // Default language for TTS
+```
+
+<img width="530" src="https://github.com/user-attachments/assets/899bd3ea-f5c4-414e-b362-7f1832bf1c14" />
+
+<hr width="75%">
+
+The **Enable TTS During Playback** option controls whether the time announcement
+
+should also occur while a stream is playing, or only when playback is idle.
+
+<img width="530" src="https://github.com/user-attachments/assets/a317ae7c-6c51-4bfb-af3e-8603667f150d" />
+
+<hr width="75%">
+
+During the configured Do Not Disturb (DND) time window, the TTS clock will not activate.
+
+<img width="530" src="https://github.com/user-attachments/assets/17d80a74-4c4f-4141-b3ee-806861b7dc9f" />
+
+Due to limitations of the audio library, **TTS Clock is disabled in SD mode and DLNA mode**.
+
 [⬆ Back to top](#top)
 
 ---
