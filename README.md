@@ -445,13 +445,13 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
  • Added **PlatformIO step-by-step installation guide**
 
 ```
-Hardware descriptions and setup guides will be added **progressively as time allows**
+Hardware descriptions and setup guides will be added progressively as time allows
 
 Custom Fusion logo graphic created by Scott Barber & Gemini & chatGPT 😄
 
-I don't plan to change the `config_struct` in the near future, 
+I don't plan to change the config_struct in the near future, 
 
-so upcoming updates should be possible via **OTA**, without requiring a **full erase** 
+so upcoming updates should be possible via OTA, without requiring a full erase.
 ``` 
 
 ## v0.4.4 – 2026-01-31
