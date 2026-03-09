@@ -400,7 +400,7 @@ Online: https://vip-cxema.org/index.php/online-kalkulyatory/yoradio-redaktor-tem
 
 Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
 
-[⬆ Collapse](#getting-started)
+[⬆ Collapse](#subtop)
 
 </details>
 
