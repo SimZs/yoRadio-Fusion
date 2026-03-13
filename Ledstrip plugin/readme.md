@@ -1,6 +1,6 @@
 # LED Strip Plugin for yoRadio Fusion
 
-Adds NeoPixel (WS2812B) LED strip support to yoRadio Fusion with multiple visual effects that react to music.
+Adds NeoPixel ([WS2812B](https://www.aliexpress.com/item/2036819167.html)) LED strip support to yoRadio Fusion with multiple visual effects that react to music.
 
 ---
 
