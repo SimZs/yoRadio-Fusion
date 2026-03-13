@@ -15,7 +15,7 @@ Adds NeoPixel ([WS2812B](https://www.aliexpress.com/item/2036819167.html)) LED s
 > **Note:** LED count must be an even number. All symmetric effects split the strip at the midpoint.  
 > The fire effect cooling parameters are tuned for 144 LEDs — on shorter strips the flames will be faster and taller, which still looks good.
 
-Recommended Wiring 
+**[Recommended Wiring](https://github.com/SimZs/yoRadio-Fusion/blob/main/Ledstrip%20plugin/hardware.md)**
 
 ---
 
