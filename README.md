@@ -409,6 +409,27 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
 ---
 
 ## 📌 Version History / Changelog
+## v0.6.6 – 2026-03-27
+
+ • 5x7 GFX fonts replaced with DejaVu fonts  
+   (Full Latin character set included. Greek and Cyrillic characters removed → Ukrainian, Russian and Greek languages are no longer supported)
+
+ • Reduced clock size on 480×xxx displays  
+   Added 3 new status widgets for: TTS Clock, Backlight Fading and LED Strip (visual indicators)
+
+ • New widgets in the station line on most supported displays  
+   Track number indicator (left) and mode indicator (web / sd / dlna) on the right
+
+ • audioI2S library updated to v3.4.5
+
+ • Two new audio presets added: **Country** and **Alternative**
+
+ • IR remote learning tool redesigned by Tamás Várai  
+   Added Backup/Restore support for learned IR codes (`ircodes.csv`)
+
+ • OTA firmware update supported  
+   Recommended order: **upload SPIFFS first** (because `script.js` changed), then upload the firmware
+
 ## v0.6.2 – 2026-03-19
 
  • Audio tone control improvements with preset support
