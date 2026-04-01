@@ -124,7 +124,7 @@ const char        apSettFmt[]    PROGMEM = "SETTINGS PAGE ON: HTTP://%s/";
     "%d hPa · %d%% RH · %.1f km/h";
   #endif
 
-#elif (DSP_MODEL == DSP_ST7789_240) || DSP_MODEL!=DSP_GC9A01 || DSP_MODEL!=DSP_GC9A01A || DSP_MODEL!=DSP_GC9A01_I80
+#elif (DSP_MODEL == DSP_ST7789_240) || (DSP_MODEL==DSP_GC9A01) || (DSP_MODEL==DSP_GC9A01A) || (DSP_MODEL==DSP_GC9A01_I80)
 
   #ifdef IMPERIALUNIT
   const char weatherFmtShort[] PROGMEM =

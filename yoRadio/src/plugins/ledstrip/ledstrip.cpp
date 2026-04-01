@@ -43,6 +43,61 @@ extern "C" __attribute__((weak)) uint8_t fusion_led_vu_right() { return 0; }
 #define LEDSTRIP_SCREEN_PULSE_MS    20   // gyorsabb tick, sin simítja
 #define LEDSTRIP_CONNECT_PULSE_MS   26
 
+// -----------------------------------------------------------------------------
+// LED-szám-arányos skálázás
+// Minden animáció-paramétert a "referencia" 144 LED-hez képest skálázunk.
+// Ez biztosítja, hogy 12, 24, 60 LED-nél is ugyanolyan dinamikus legyen.
+// -----------------------------------------------------------------------------
+#define LED_REFERENCE_COUNT   144
+
+// Skáláz egy értéket: ref_val 144 LED-nél → arányos érték LEDSTRIP_COUNT-nál
+// Minimum min_val, hogy kis számnál ne legyen nulla.
+static inline uint16_t ledScale(uint16_t ref_val, uint16_t min_val = 1) {
+  uint32_t v = ((uint32_t)ref_val * LEDSTRIP_COUNT + LED_REFERENCE_COUNT / 2) / LED_REFERENCE_COUNT;
+  return (uint16_t)(v < min_val ? min_val : v);
+}
+
+// Skáláz float értéket (decay, lépésköz stb.)
+static inline float ledScaleF(float ref_val, float min_val = 0.0f) {
+  float v = ref_val * LEDSTRIP_COUNT / (float)LED_REFERENCE_COUNT;
+  return (v < min_val) ? min_val : v;
+}
+
+// -----------------------------------------------------------------------------
+// VU dinamikus tartomány + gamma leképezés
+// -----------------------------------------------------------------------------
+// Gamma táblázat: gamma = 2.0
+// A VU forrás 50-230 körül ingadozik, ez a görbe ezt a tartományt
+// szépen szétteríti 0..9 pixelre (12 LED-es félszalagnál).
+// Értékek: round(255 * (i/255)^2.0) for i in 0..255
+static const uint8_t vuGamma[256] PROGMEM = {
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,
+    1,   1,   1,   1,   2,   2,   2,   2,   2,   2,   3,   3,   3,   3,   4,   4,
+    4,   4,   5,   5,   5,   5,   6,   6,   6,   7,   7,   7,   8,   8,   8,   9,
+    9,   9,  10,  10,  11,  11,  11,  12,  12,  13,  13,  14,  14,  15,  15,  16,
+   16,  17,  17,  18,  18,  19,  19,  20,  20,  21,  21,  22,  23,  23,  24,  24,
+   25,  26,  26,  27,  28,  28,  29,  30,  30,  31,  32,  32,  33,  34,  35,  35,
+   36,  37,  38,  38,  39,  40,  41,  42,  42,  43,  44,  45,  46,  47,  47,  48,
+   49,  50,  51,  52,  53,  54,  55,  56,  56,  57,  58,  59,  60,  61,  62,  63,
+   64,  65,  66,  67,  68,  69,  70,  71,  73,  74,  75,  76,  77,  78,  79,  80,
+   81,  82,  84,  85,  86,  87,  88,  89,  91,  92,  93,  94,  95,  97,  98,  99,
+  100, 102, 103, 104, 105, 107, 108, 109, 111, 112, 113, 115, 116, 117, 119, 120,
+  121, 123, 124, 126, 127, 128, 130, 131, 133, 134, 136, 137, 139, 140, 142, 143,
+  145, 146, 148, 149, 151, 152, 154, 155, 157, 158, 160, 162, 163, 165, 166, 168,
+  170, 171, 173, 175, 176, 178, 180, 181, 183, 185, 186, 188, 190, 192, 193, 195,
+  197, 199, 200, 202, 204, 206, 207, 209, 211, 213, 215, 217, 218, 220, 222, 224,
+  226, 228, 230, 232, 233, 235, 237, 239, 241, 243, 245, 247, 249, 251, 253, 255
+};
+
+
+
+// vuMap: VU (0..255) → pixel-szám (0..maxLed), gamma korrekcióval
+// Nincs normalizálás – a VU forrás már 0..255 skálán dolgozik
+static uint16_t vuMap(uint8_t vu, uint16_t maxLed) {
+  uint8_t gv = pgm_read_byte(&vuGamma[vu]);
+  return (uint16_t)((uint32_t)gv * maxLed / 255U);
+}
+
 // Breathing sin-lépések száma egy félciklusban (fel vagy le)
 // SCREEN_PULSE_MS * BREATH_STEPS = félciklus ideje ms-ben
 // pl. 20ms * 80 = 1600ms fel, 1600ms le → ~3.2s egy teljes lélegzet
@@ -149,9 +204,31 @@ static uint32_t vuHsvColor(uint16_t idx, uint16_t total, uint8_t brightness) {
   return strip.gamma32(strip.ColorHSV((uint16_t)hue, sat, brightness));
 }
 
+// A VU forrás (getVUlevel) már eleve simított RMS értéket ad vissza,
+// ezért külön smoothing nem kell – csak dynMax normalizálás.
+static uint8_t g_smoothL = 0;
+static uint8_t g_smoothR = 0;
+
+static void updateSmoothedVU(uint8_t rawL, uint8_t rawR) {
+  g_smoothL = rawL;
+  g_smoothR = rawR;
+}
+
+
 static void decayPeaks() {
-  if (g_peakL > 0) g_peakL--;
-  if (g_peakR > 0) g_peakR--;
+  // Csúcs visszaesési sebesség: arányos a LED-számhoz.
+  // 144 LED-nél 1px/frame gyors, 12 LED-nél 1px/frame a teljes skálán átér 12 frame alatt.
+  // Megoldás: frame-ek felosztása – kis számnál ritkábban esik a csúcs.
+  static uint8_t s_decayCounter = 0;
+  // decay intervallum: referencia / LEDSTRIP_COUNT (kerekítve, min 1)
+  uint8_t interval = (uint8_t)(LED_REFERENCE_COUNT / LEDSTRIP_COUNT);
+  if (interval < 1) interval = 1;
+  s_decayCounter++;
+  if (s_decayCounter >= interval) {
+    s_decayCounter = 0;
+    if (g_peakL > 0) g_peakL--;
+    if (g_peakR > 0) g_peakR--;
+  }
 }
 
 static void renderStereoVU(uint8_t vuL, uint8_t vuR) {
@@ -159,8 +236,8 @@ static void renderStereoVU(uint8_t vuL, uint8_t vuR) {
   const uint16_t leftCount  = half;
   const uint16_t rightCount = LEDSTRIP_COUNT - half;
 
-  uint16_t litL = map(vuL, 0, 180, 0, leftCount);
-  uint16_t litR = map(vuR, 0, 180, 0, rightCount);
+  uint16_t litL = vuMap(g_smoothL, leftCount);
+  uint16_t litR = vuMap(g_smoothR, rightCount);
 
   if (litL > g_peakL) g_peakL = litL;
   if (litR > g_peakR) g_peakR = litR;
@@ -304,7 +381,9 @@ static void renderRainbow() {
     strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(hue)));
   }
   showStrip();
-  g_rainbowIndex += 220;
+  // Referencia: 220 lépés/frame @ 144 LED → skálázva arányos forgássebesség
+  // Kis számnál (12 LED) a lépés ~24× nagyobb lenne → fix referencia-sebességet tartunk
+  g_rainbowIndex += 220;  // szándékosan NEM skálázott: a forgás "szögsebessége" legyen állandó
 }
 
 // -----------------------------------------------------------------------------
@@ -328,15 +407,19 @@ static void renderRainbowFlow() {
   const uint16_t half = LEDSTRIP_COUNT / 2;
 
   if (hasVU) {
-    // Megjelenített sáv hossza: VU alapján 10%..100% a félszalagból
-    uint16_t litHalf = 3 + (uint16_t)((uint32_t)vuAvg * (half - 3) / 255);
+    // Megjelenített sáv hossza: vuMap adja a dinamikus+gamma leképezést
+    uint16_t litMin  = ledScale(3, 1);
+    uint16_t litHalf = litMin + vuMap(vuAvg, half - litMin);
 
-    // Erős ütem → hue lökés (minél erősebb, annál nagyobb ugrás)
+    // Erős ütem → hue lökés: a lökés mértékét a LED-számarányhoz igazítjuk
+    // 144-nél 1200/frame max → kis számnál kisebb lökés (az arány megmarad)
     if (vuAvg > 180) {
-      g_rainbowIndex += (uint16_t)((uint32_t)(vuAvg - 180) * 1200U / 75U);
+      uint16_t jump = (uint16_t)((uint32_t)(vuAvg - 180) * 1200U / 75U);
+      // skálázás: 144 LED-nél a hue-tér egyenletesen van elosztva; kevesebb LED-nél
+      // egy pixel = több hue lépés → a látható ugrás ugyanakkora legyen
+      g_rainbowIndex += (uint16_t)((uint32_t)jump * LED_REFERENCE_COUNT / LEDSTRIP_COUNT);
     }
 
-    // Kirajzolás: lit pixelek szivárvány, a többi fekete
     clearStrip();
     for (uint16_t i = 0; i < litHalf; i++) {
       uint16_t hue = g_rainbowIndex + (uint32_t)i * 65536UL / litHalf;
@@ -344,16 +427,16 @@ static void renderRainbowFlow() {
       strip.setPixelColor(half - 1 - i, c);
       strip.setPixelColor(half + i,     c);
     }
-    g_rainbowIndex += 400;  // gyors forgás lejátszás közben
+    // Forgássebesség: állandó "szögsebesség" (400 lépés/frame referencia)
+    g_rainbowIndex += (uint16_t)((uint32_t)400 * LED_REFERENCE_COUNT / LEDSTRIP_COUNT);
   } else {
-    // VU nélkül: teljes szalag, lassú egyenletes forgás
     for (uint16_t i = 0; i < half; i++) {
       uint16_t hue = g_rainbowIndex + (uint32_t)i * 65536UL / half;
       uint32_t c = strip.gamma32(strip.ColorHSV(hue, 255, 160));
       strip.setPixelColor(half - 1 - i, c);
       strip.setPixelColor(half + i,     c);
     }
-    g_rainbowIndex += 150;
+    g_rainbowIndex += (uint16_t)((uint32_t)150 * LED_REFERENCE_COUNT / LEDSTRIP_COUNT);
   }
   showStrip();
 }
@@ -391,37 +474,39 @@ static void renderFire() {
   if (millis() - g_fireLastFrame < FIRE_MS) return;
   g_fireLastFrame = millis();
 
-  uint8_t vuL   = fusion_led_vu_left();
-  uint8_t vuR   = fusion_led_vu_right();
-  uint8_t vuAvg = (uint8_t)(((uint16_t)vuL + vuR) >> 1);
+  uint8_t vuAvg = (g_smoothL / 2) + (g_smoothR / 2);
 
-  // 1. Hűtés – per pixel, frame-enkénti fix levonás
-  //    VU erős → kisebb cooling → magasabb lángok
-  //    cooling=8 → ~1 másodperc alatt hűl le egy 255-ös pixel (30fps-nél)
-  uint8_t cooling = 12 - (uint8_t)((uint32_t)vuAvg * 7U / 255U);  // 5..12
+  // Cooling: fix 20-as alap, VU-val csökkentve (kevesebb hűtés = magasabb láng)
+  // LED-számon NEM skálázunk – a cooling a hőtérkép értékein dolgozik (0..255),
+  // nem a pixel-számon, ezért ez LED-szágtól független kell hogy legyen.
+  uint8_t cooling = 20 - (uint8_t)((uint32_t)vuAvg * 14U / 255U);  // 6..20
+
+  // 1. Hűtés
   for (uint8_t i = 0; i < FIRE_HALF; i++) {
     uint8_t cool = (uint8_t)random(cooling / 2, cooling + 1);
     g_heat[i] = (g_heat[i] > cool) ? g_heat[i] - cool : 0;
   }
 
-  // 2. Konvekció: hő terjed "felfelé" (közép felé)
-  for (uint16_t i = FIRE_HALF - 1; i >= 2; i--) {
-    g_heat[i] = ((uint16_t)g_heat[i-1] + g_heat[i-2] + g_heat[i-2]) / 3;
+  // 2. Konvekció: csak ha van elég pixel; 1-2 pixeles tömbnél kihagyjuk
+  if (FIRE_HALF >= 3) {
+    for (int8_t i = FIRE_HALF - 1; i >= 2; i--) {
+      g_heat[i] = ((uint16_t)g_heat[i-1] + g_heat[i-2] + g_heat[i-2]) / 3;
+    }
   }
 
-  // 3. Szikrák az alján (szél = FIRE_HALF-1 index)
-  //    VU nélkül: kis alaplángok, VU ütemre: nagy szikrák
-  uint8_t sparkChance = (vuAvg > 20) ? 1 : 2;   // 1=50%, 2=33%
-  uint8_t sparkMin    = 120 + (uint8_t)((uint32_t)vuAvg * 80U / 255U);   // 120..200
-  uint8_t sparkMax    = 180 + (uint8_t)((uint32_t)vuAvg * 75U / 255U);   // 180..255
-  if (random(0, sparkChance + 1) == 0) {
-    uint8_t pos = random(0, min((uint8_t)5, (uint8_t)FIRE_HALF));
+  // 3. Szikrák: mindig az első 1-3 pixelre, LED-számtól függetlenül
+  uint8_t sparkRange = (FIRE_HALF >= 3) ? 3 : FIRE_HALF;
+  uint8_t sparkMin   = 150 + (uint8_t)((uint32_t)vuAvg * 60U / 255U);  // 150..210
+  uint8_t sparkMax   = 200 + (uint8_t)((uint32_t)vuAvg * 55U / 255U);  // 200..255
+  // Minden frame-ben szikrázik (nem random chance), hogy kis számnál is látszódjon
+  {
+    uint8_t pos = (FIRE_HALF > 1) ? random(0, sparkRange) : 0;
     g_heat[pos] = qadd8(g_heat[pos], random(sparkMin, sparkMax + 1));
   }
-  // Erős ütem: extra szikra lökés
-  if (vuAvg > 200) {
-    uint8_t pos2 = random(0, min((uint8_t)3, (uint8_t)FIRE_HALF));
-    g_heat[pos2] = qadd8(g_heat[pos2], random(200, 256));
+  if (vuAvg > 180) {
+    // Erős ütem: extra szikra
+    uint8_t pos2 = (FIRE_HALF > 1) ? random(0, sparkRange) : 0;
+    g_heat[pos2] = qadd8(g_heat[pos2], random(180, 256));
   }
 
   // 4. Megjelenítés: i=0 a szél (forró), i=FIRE_HALF-1 a közép (hűvös)
@@ -446,12 +531,17 @@ static void renderMeterVU() {
   uint8_t vuL = fusion_led_vu_left();
   uint8_t vuR = fusion_led_vu_right();
 
-  const uint16_t half  = LEDSTRIP_COUNT / 2;
-  const float    decay = (float)half / (500.0f / LEDSTRIP_FRAME_MS);  // px/frame
+  vuL = g_smoothL;
+  vuR = g_smoothR;
 
-  // Aktuális sáv pixel-hossz
-  float litLf = (float)vuL * half / 255.0f;
-  float litRf = (float)vuR * half / 255.0f;
+  const uint16_t half  = LEDSTRIP_COUNT / 2;
+  // Csúcs visszaesés: 0.5mp alatt a félszalag hosszát teszi meg.
+  // Kevés LED-nél ez pixelben kisebb, de arányában ugyanannyi idő alatt ér le.
+  const float    decay = (float)half / (500.0f / LEDSTRIP_FRAME_MS);
+
+  // Aktuális sáv pixel-hossz (vuMap: dinamikus + gamma)
+  float litLf = (float)vuMap(vuL, half);
+  float litRf = (float)vuMap(vuR, half);
   uint16_t litL = (uint16_t)litLf;
   uint16_t litR = (uint16_t)litRf;
 
@@ -598,7 +688,6 @@ void ledstripPluginInit() {
 }
 
 void LedStripPlugin::on_setup() {
-  Serial.println("[LED] on_setup()");
   strip.begin();
   strip.setBrightness(map(config.store.lsBrightness, 0, 100, 0, 255));
   strip.clear();
@@ -617,13 +706,11 @@ void LedStripPlugin::on_connect() {
 }
 
 void LedStripPlugin::on_start_play() {
-  Serial.println("[LED] on_start_play()");
   g_mode = LM_PLAY;
   flashNow(0, 180, 40, 140);
 }
 
 void LedStripPlugin::on_stop_play() {
-  Serial.println("[LED] on_stop_play()");
   g_mode = LM_STOP;
   fillAll(180, 0, 0);
   showStrip();
@@ -662,6 +749,13 @@ void LedStripPlugin::on_loop() {
 
   if (millis() - g_lastFrame < LEDSTRIP_FRAME_MS) return;
   g_lastFrame = millis();
+
+  // VU simítás egyszer fut frame-enként, minden render előtt
+  {
+    uint8_t rawL = fusion_led_vu_left();
+    uint8_t rawR = fusion_led_vu_right();
+    updateSmoothedVU(rawL, rawR);
+  }
 
   if (millis() < g_flashUntil) {
     renderFlash();

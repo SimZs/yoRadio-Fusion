@@ -118,7 +118,7 @@ const char        apSettFmt[]    PROGMEM = "НАСТРОЙКИ: HTTP://%s/";
 #if (DSP_MODEL == DSP_ILI9341) || (DSP_MODEL == DSP_ST7735) || (DSP_MODEL == DSP_ST7789) || (DSP_MODEL == DSP_ST7789_76)
 const char weatherFmtShort[] PROGMEM =
   "%d гПа · %d%% RH · %.1f км/год";
-#elif (DSP_MODEL == DSP_ST7789_240) || DSP_MODEL!=DSP_GC9A01 || DSP_MODEL!=DSP_GC9A01A || DSP_MODEL!=DSP_GC9A01_I80
+#elif (DSP_MODEL == DSP_ST7789_240) || (DSP_MODEL==DSP_GC9A01) || (DSP_MODEL==DSP_GC9A01A) || (DSP_MODEL==DSP_GC9A01_I80)
   "%d гПа · %d%% RH";
 #else
 const char weatherFmtShort[] PROGMEM =

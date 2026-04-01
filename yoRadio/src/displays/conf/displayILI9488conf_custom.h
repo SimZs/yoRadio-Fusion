@@ -28,7 +28,7 @@ const ScrollConfig title1Conf   PROGMEM = {{ TFT_FRAMEWDT, 49, 4, WA_CENTER   },
 const ScrollConfig title2Conf   PROGMEM = {{ TFT_FRAMEWDT, 80, 4, WA_CENTER   }, 140, false, MAX_WIDTH, 5000, 7, 40 };  // textsize=1 → DejaVuSans11
 const ScrollConfig playlistConf PROGMEM = {{ TFT_FRAMEWDT, 146, 1, WA_LEFT  }, 140, true,  MAX_WIDTH, 1000, 7, 40 };
 const ScrollConfig apTitleConf  PROGMEM = {{ TFT_FRAMEWDT, TFT_FRAMEWDT, 4, WA_CENTER }, 140, false, MAX_WIDTH, 0, 7, 40 };
-const ScrollConfig apSettConf   PROGMEM = {{ TFT_FRAMEWDT, 320-TFT_FRAMEWDT-16, 5, WA_LEFT }, 140, false, MAX_WIDTH, 0, 7, 40 };
+const ScrollConfig apSettConf   PROGMEM = {{ TFT_FRAMEWDT, 320-TFT_FRAMEWDT-16, 5, WA_CENTER }, 140, false, MAX_WIDTH, 0, 7, 40 };
 const ScrollConfig weatherConf  PROGMEM = {{ 10, 113, 3, WA_CENTER }, 140, false, MAX_WIDTH+20, 0, 3, 60 };
 
 /* BACKGROUNDS  */
@@ -67,12 +67,12 @@ inline BitrateConfig getfullbitrateConf() {
 /* ÁLLOMÁS SORSZÁM (outline box, bal – meta sor) */
 // metaBG: top=0, height=50, box_h=26 → box_top=12
 inline StationNumConfig getstationNumConf() {
-  return {{ 3, 12, 3, WA_LEFT }, 55 };
+  return {{ 3, 12, 2, WA_LEFT }, 55 };
 }
 
 /* LEJÁTSZÁS MÓD (filled box, jobb – meta sor) */
 inline PlayModeConfig getplayModeConf() {
-  return {{ DSP_WIDTH - 3 - 55, 12, 3, WA_LEFT }, 55 };
+  return {{ DSP_WIDTH - 3 - 55, 12, 2, WA_LEFT }, 55 };
 }
 
 /* BANDS  */

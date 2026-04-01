@@ -84,12 +84,12 @@ inline BitrateConfig getfullbitrateConf() {
 /* ÁLLOMÁS SORSZÁM (outline box, bal – meta sor) */
 // metaBG: top=0, height=50, box_h=26 → box_top=12
 inline StationNumConfig getstationNumConf() {
-  return {{ 3, 2, 3, WA_LEFT }, 52 };
+  return {{ 3, 2, 2, WA_LEFT }, 52 };
 }
 
 /* LEJÁTSZÁS MÓD (filled box, jobb – meta sor) */
 inline PlayModeConfig getplayModeConf() {
-  return {{ DSP_WIDTH - 3 - 52, 2, 3, WA_LEFT }, 52 };
+  return {{ DSP_WIDTH - 3 - 52, 2, 2, WA_LEFT }, 52 };
 }
 
 inline VUBandsConfig getbandsConf() {
