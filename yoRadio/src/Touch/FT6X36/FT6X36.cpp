@@ -1,3 +1,4 @@
+#include "../../core/options.h"
 #if TS_MODEL == TS_MODEL_FT6X36
     #include "FT6X36.h"
 
@@ -22,10 +23,8 @@ bool FT6X36::begin(uint8_t threshold) {
 
     uint8_t id = readRegister8(FT6X36_REG_CHIPID);
     if (id != FT6206_CHIPID && id != FT6236_CHIPID && id != FT6336_CHIPID) return false;
-
-    pinMode(_intPin, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(_intPin), FT6X36::isr, FALLING);
-
+        pinMode(_intPin, INPUT_PULLUP);
+        attachInterrupt(digitalPinToInterrupt(_intPin), FT6X36::isr, FALLING);
     writeRegister8(FT6X36_REG_DEVICE_MODE, 0x00);
     writeRegister8(FT6X36_REG_THRESHHOLD, threshold);
     writeRegister8(FT6X36_REG_TOUCHRATE_ACTIVE, 0x0E);
@@ -110,7 +109,7 @@ void FT6X36::readData(void) {
     _wire->endTransmission();
 
     _wire->requestFrom((uint8_t)FT6X36_ADDR, size);
-    for (uint8_t i = 0; i < size; i++) data[i] = Wire.read();
+    for (uint8_t i = 0; i < size; i++) data[i] = _wire->read();
 
     #ifdef FT6X36_DEBUG
     Serial.println("REGISTERS:");

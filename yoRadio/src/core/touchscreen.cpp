@@ -226,12 +226,6 @@ bool istouched = _istouched();
             break;
       }
     }
-    if (config.store.dbgtouch) {
-      Serial.print(", x = ");
-      Serial.print(p.x);
-      Serial.print(", y = ");
-      Serial.println(p.y);
-    }
   }else{
     if (wastouched) {/*     END TOUCH     */
       if (direct == TDS_REQUEST) {
