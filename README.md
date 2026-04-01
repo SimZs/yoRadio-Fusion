@@ -409,6 +409,15 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
 ---
 
 ## 📌 Version History / Changelog
+## v0.6.7 – 2026-04-01
+
+ • Short weather displays BUG fix 
+
+ • Reduce the font size of the Playmode widget to ensure proper display of DLNA 
+
+ • Modify the LED strip plugin so that the VU meter moves even on shorter strips
+ 
+   
 ## v0.6.6 – 2026-03-27
 
  • 5x7 GFX fonts replaced with DejaVu fonts  
