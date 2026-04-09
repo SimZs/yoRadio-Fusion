@@ -216,6 +216,7 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 #define TS_MODEL_GT911          2
 #define TS_MODEL_CST816         3
 #define TS_MODEL_FT6X36         4
+#define TS_MODEL_CST328 	5 
 
 #ifndef TS_MODEL
   #define TS_MODEL              TS_MODEL_UNDEFINED
@@ -497,16 +498,16 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 
 #define EN  1
 #define RU  2
-#define HU  3  // Módosítás plussz sor "multi_language"
-#define PL  4  // Módosítás plussz sor "multi_language"
-#define LANG_NL  5  // Módosítás plussz sor "multi_language"
-#define GR  6  // Módosítás plussz sor Görög "multi_language"
-#define CZ  7  // Módosítás plussz sor "multi_language"
-#define SK  8  // Módosítás plussz sor "multi_language"
+#define HU  3
+#define PL  4
+#define NL  5
+#define GR  6
+#define CZ  7
+#define SK  8
 #define UA  9
 #define DE  10
-#define LANG_IT  11
-#define LANG_RO  12
+#define IT  11
+#define RO  12
 #ifndef L10N_LANGUAGE
   #define L10N_LANGUAGE EN
 #endif
