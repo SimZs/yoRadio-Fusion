@@ -1,5 +1,5 @@
 <p align="center">
-<img width="1536" alt="bitkép" src="https://github.com/user-attachments/assets/ef6b7091-67af-4ebe-9bdc-6cf28449cfff" />
+<img width="1536" height="1024" alt="Fusion_EDGE" src="https://github.com/user-attachments/assets/1a125bab-994d-40ea-aba9-97b7c93c466b" />
 </p>
 <a name="top"></a>
 
