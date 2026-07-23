@@ -1,5 +1,5 @@
 <p align="center">
-<img width="1536" height="1024" alt="Fusion_EDGE" src="https://github.com/user-attachments/assets/1a125bab-994d-40ea-aba9-97b7c93c466b" />
+<img width="1536" height="1024" alt="Fusion_Logo_Github" src="https://github.com/user-attachments/assets/c56b0560-2c56-4ea2-963d-685382e22bc3" />
 </p>
 <a name="top"></a>
 
