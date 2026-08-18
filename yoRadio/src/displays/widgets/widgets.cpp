@@ -445,7 +445,9 @@ void ScrollWidget::init(const char* separator, ScrollConfig conf, uint16_t fgcol
 
 
 void ScrollWidget::_setTextParams() {
-  if (_config.textsize == 0) return;
+  // textsize 0 selects DejaVuSans8 on graphical displays. Treat it as
+  // disabled only on targets where no graphical font is available.
+  if (_config.textsize == 0 && !_gfxFont) return;
   if(_fb->ready()){
   #ifdef PSFBUFFER
     _applyFont(*_fb);
@@ -530,7 +532,8 @@ void ScrollWidget::setText(const char* txt, const char *format){
 
 void ScrollWidget::loop() {
   if (_locked) return;
-  if (!_doscroll || _config.textsize == 0 || (dsp.getScrollId() != NULL && dsp.getScrollId() != this)) return;
+  if (!_doscroll || (_config.textsize == 0 && !_gfxFont) ||
+      (dsp.getScrollId() != NULL && dsp.getScrollId() != this)) return;
 
   const uint16_t wl  = _winLeft(false);
   const uint16_t fbl = _fb->ready() ? 0 : wl;
@@ -602,7 +605,7 @@ void ScrollWidget::_draw() {
 }
 
 void ScrollWidget::_calcX() {
-  if (!_doscroll || _config.textsize == 0) return;
+  if (!_doscroll || (_config.textsize == 0 && !_gfxFont)) return;
 
   _x -= _scrolldelta;
 
@@ -2300,7 +2303,9 @@ void DateWidget::update() {
   if (desired > maxW) desired = maxW;
 
 #if DSP_MODEL == DSP_ST7789_76
-  setWindowWidth(dsp.width() / 2 + 23);
+  // This compact layout shares the row with weather. Keep the configured
+  // width so both widgets draw and clear exactly the same area.
+  setWindowWidth(getDateConf().width);
 #else
   setWindowWidth(desired);  // vibrálásmentes: setWindowWidth csak reposition()-t hív ha méret nem változott
 #endif

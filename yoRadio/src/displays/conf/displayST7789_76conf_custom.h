@@ -11,6 +11,7 @@
 #define DSP_HEIGHT      76
 #define TFT_FRAMEWDT    2
 #define MAX_WIDTH       DSP_WIDTH-TFT_FRAMEWDT*2
+#define INFO_SCROLL_WIDTH (DSP_WIDTH/2+50)
 
 #define bootLogoTop     4
 
@@ -99,7 +100,7 @@ inline WidgetConfig getclockConf() {
 }
 
 static constexpr ScrollConfig kDateBase = {
-  { TFT_FRAMEWDT, 46, 0, WA_LEFT }, DSP_WIDTH/2+35, false, DSP_WIDTH/2+35, 5000, 1, 50 };
+  { TFT_FRAMEWDT, 46, 0, WA_LEFT }, 192, false, INFO_SCROLL_WIDTH, 5000, 1, 50 };
 
 static inline uint16_t dateTopByLayout(uint8_t ly) {
   (void)ly; return 46;
@@ -139,7 +140,7 @@ inline MoveConfig getdateMove() {
   return m;
 }
 
-const MoveConfig   weatherMove    PROGMEM = {TFT_FRAMEWDT, 40, MAX_WIDTH };
-const MoveConfig   weatherMoveVU  PROGMEM = {TFT_FRAMEWDT, 40, DSP_WIDTH/2+35 };
+const MoveConfig   weatherMove    PROGMEM = {TFT_FRAMEWDT, 46, INFO_SCROLL_WIDTH };
+const MoveConfig   weatherMoveVU  PROGMEM = {TFT_FRAMEWDT, 46, INFO_SCROLL_WIDTH };
 
 #endif

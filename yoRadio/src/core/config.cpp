@@ -113,7 +113,11 @@ if (store.playlistSource > PL_SRC_DLNA)
 if (store.lastPlayedSource > PL_SRC_DLNA)
     store.lastPlayedSource = PL_SRC_WEB;
 
-#ifndef USE_DLNA
+#ifdef USE_DLNA
+    // Restore the playlist that actually played last. playlistSource may be
+    // changed temporarily while browsing DLNA and is therefore not authoritative.
+    store.playlistSource = store.lastPlayedSource;
+#else
     store.playlistSource   = PL_SRC_WEB;
     store.lastPlayedSource = PL_SRC_WEB;
 #endif
@@ -482,6 +486,9 @@ void Config::_initHW(){
   #endif
   #if BRIGHTNESS_PIN!=255
     pinMode(BRIGHTNESS_PIN, OUTPUT);
+    // analogWrite() creates the LEDC channel; its polarity can only be set afterwards.
+    analogWrite(BRIGHTNESS_PIN, 0);
+    ledcOutputInvert(BRIGHTNESS_PIN, BRIGHTNESS_INVERTED);
     setBrightness(false);
   #endif
 }
@@ -1561,7 +1568,15 @@ void Config::doSleep() {
         mask |= (1ULL << WAKE_PIN2);
     }
 #endif
-    if (mask != 0) { esp_sleep_enable_ext1_wakeup(mask, ESP_EXT1_WAKEUP_ANY_LOW); }
+    if (mask != 0) {
+#if CONFIG_IDF_TARGET_ESP32
+        // Classic ESP32 supports ALL_LOW and ANY_HIGH only. Wake inputs use
+        // pull-ups here, so active-low buttons require ALL_LOW on this target.
+        esp_sleep_enable_ext1_wakeup(mask, ESP_EXT1_WAKEUP_ALL_LOW);
+#else
+        esp_sleep_enable_ext1_wakeup(mask, ESP_EXT1_WAKEUP_ANY_LOW);
+#endif
+    }
     esp_sleep_enable_timer_wakeup(config.sleepfor * 60ULL * 1000000ULL);
     esp_deep_sleep_start();
 }
@@ -1587,7 +1602,13 @@ void Config::doSleepW() {
     }
 #endif
     delay(200);
-    if (mask != 0) { esp_sleep_enable_ext1_wakeup(mask, ESP_EXT1_WAKEUP_ANY_LOW); }
+    if (mask != 0) {
+#if CONFIG_IDF_TARGET_ESP32
+        esp_sleep_enable_ext1_wakeup(mask, ESP_EXT1_WAKEUP_ALL_LOW);
+#else
+        esp_sleep_enable_ext1_wakeup(mask, ESP_EXT1_WAKEUP_ANY_LOW);
+#endif
+    }
     esp_deep_sleep_start();
 }
 

@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------------------------------------
 //    This file was generated on the website https://vip-cxema.org/
 //    Program version: 1.2.0_03.06.2025
-//    File last modified: 18:29 02.12.2025
+//    File last modified: 08:26 27.03.2026
 //----------------------------------------------------------------------------------------------------------------
 //    Project home       https://github.com/e2002/yoradio
 //    Wiki               https://github.com/e2002/yoradio/wiki
@@ -25,29 +25,29 @@
 /*       | color name         |    R    G    B    |                                                               */
 /*----------------------------------------------------------------------------------------------------------------*/
 #define COLOR_BACKGROUND        0,0,0     /*  background                                                  */
-#define COLOR_STATION_NAME        0,0,255     /*  station name                                                */
-#define COLOR_STATION_BG         223,223,223     /*  station name background                                     */
-#define COLOR_STATION_FILL       223,223,223     /*  station name fill background                                */
-#define COLOR_SNG_TITLE_1       255,255,0     /*  first title                                                 */
-#define COLOR_SNG_TITLE_2         0,255,255    /*  second title                                                */
-#define COLOR_WEATHER           255,150,0     /*  weather string                                              */
+#define COLOR_STATION_NAME        0,170,255     /*  station name                                                */
+#define COLOR_STATION_BG         0,0,0     /*  station name background                                     */
+#define COLOR_STATION_FILL       255,196,5     /*  station name fill background                                */
+#define COLOR_SNG_TITLE_1       255,255,255     /*  first title                                                 */
+#define COLOR_SNG_TITLE_2         131,255,6    /*  second title                                                */
+#define COLOR_WEATHER           255,180,0     /*  weather string                                              */
 #define COLOR_VU_MAX            255,0,0     /*  max of VU meter                                             */
 #define COLOR_VU_MIN            0,255,0     /*  min of VU meter                                             */
 #define COLOR_CLOCK              255,255,255     /*  clock color                                                 */
 #define COLOR_CLOCK_BG           28,28,28     /*  clock color background                                      */
-#define COLOR_SECONDS             255,255,255     /*  seconds color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)        */
-#define COLOR_DAY_OF_W          0,255,255     /*  day of week color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)    */
-#define COLOR_DATE                255,255,255     /*  date color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)           */
+#define COLOR_SECONDS             255,238,255     /*  seconds color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)        */
+#define COLOR_DAY_OF_W          0,240,255     /*  day of week color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)    */
+#define COLOR_DATE                255,238,255     /*  date color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)           */
 #define COLOR_HEAP              255,168,162     /*  heap string                                                 */
 #define COLOR_BUFFER            255,200,13     /*  buffer line                                                 */
 #define COLOR_IP                 255,238,255    /*  ip address                                                  */
-#define COLOR_VOLUME_VALUE      255,238,255     /*  volume string (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)        */
+#define COLOR_VOLUME_VALUE      250,255,75     /*  volume string (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)        */
 #define COLOR_RSSI              255,238,255     /*  rssi                                                        */
 #define COLOR_VOLBAR_OUT        255,238,255     /*  volume bar outline                                          */
 #define COLOR_VOLBAR_IN         255,238,255     /*  volume bar fill                                             */
 #define COLOR_DIGITS            255,238,255     /*  volume / station number                                     */
-#define COLOR_DIVIDER             255,232,255     /*  divider color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)        */
-#define COLOR_BITRATE           255,255,125     /*  bitrate                                                     */
+#define COLOR_DIVIDER             181,230,29     /*  divider color (DSP_ST7789, DSP_ILI9341, DSP_ILI9225)        */
+#define COLOR_BITRATE           250,255,75     /*  bitrate                                                     */
 #define COLOR_PL_CURRENT          0,0,0     /*  playlist current item                                       */
 #define COLOR_PL_CURRENT_BG      255,255,255     /*  playlist current item background                            */
 #define COLOR_PL_CURRENT_FILL    255,255,255     /*  playlist current item fill background                       */

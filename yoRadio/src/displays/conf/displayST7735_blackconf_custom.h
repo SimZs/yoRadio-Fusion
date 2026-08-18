@@ -39,7 +39,7 @@ const FillConfig  playlBGConf     PROGMEM = {{ 0, 52, 0, WA_LEFT }, DSP_WIDTH, 2
 const FillConfig  heapbarConf     PROGMEM = {{ 0, 127, 0, WA_LEFT }, DSP_WIDTH, 1, false };
 
 /* WIDGETS  */
-const WidgetConfig bootstrConf    PROGMEM = { 0, 90, 0, WA_CENTER };
+const WidgetConfig bootstrConf    PROGMEM = { 0, 113, 0, WA_CENTER };
 const WidgetConfig bitrateConf    PROGMEM = { TFT_FRAMEWDT, 26, 0, WA_RIGHT };
 const WidgetConfig voltxtConf     PROGMEM = { TFT_FRAMEWDT, 108, 0, WA_LEFT };
 const WidgetConfig  iptxtConf     PROGMEM = { TFT_FRAMEWDT, 108, 0, WA_CENTER };
@@ -99,7 +99,7 @@ inline WidgetConfig getclockConf() {
 }
 
 static constexpr ScrollConfig kDateBase = {
-  { TFT_FRAMEWDT, 95, 0, WA_RIGHT }, 128, false, 220, 5000, 1, 50 };
+  { TFT_FRAMEWDT, 95, 0, WA_RIGHT }, 128, false, 200, 5000, 1, 50 };
 
 static inline uint16_t dateTopByLayout(uint8_t ly) {
   switch (ly) { case 1: case 2: case 3: return 82; default: return 93; }

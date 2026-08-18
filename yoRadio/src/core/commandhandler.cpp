@@ -152,8 +152,8 @@ if (strEquals(command, "brightness")) {
   if (strEquals(command, "irtlp"))            { setIRTolerance(static_cast<uint8_t>(atoi(value))); return true; }
   if (strEquals(command, "oneclickswitching")){ config.saveValue(&config.store.skipPlaylistUpDown, static_cast<bool>(atoi(value))); return true; }
   if (strEquals(command, "showweather"))      { config.setShowweather(static_cast<bool>(atoi(value))); return true; }
-  if (strEquals(command, "lat"))              { config.saveValue(config.store.weatherlat, value, 10, false); return true; }
-  if (strEquals(command, "lon"))              { config.saveValue(config.store.weatherlon, value, 10, false); return true; }
+  if (strEquals(command, "lat"))              { config.saveValue(config.store.weatherlat, value, 10); return true; }
+  if (strEquals(command, "lon"))              { config.saveValue(config.store.weatherlon, value, 10); return true; }
   if (strEquals(command, "key"))              { config.setWeatherKey(value); return true; }
   if (strEquals(command, "wint"))  { config.saveValue(&config.store.weatherSyncInterval, static_cast<uint16_t>(atoi(value))); return true; }
   
@@ -775,4 +775,3 @@ void handleSetVu(AsyncWebServerRequest *request) {
 }
 
 } // namespace CmdHttp
-

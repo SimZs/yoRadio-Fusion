@@ -369,8 +369,12 @@ void Display::_start() {
   
   if(_heapbar)  _heapbar->lock(!config.store.audioinfo);
   
-  if(_weather)  _weather->lock(!config.store.showweather);
-  if(_weather && config.store.showweather)  _weather->setText(LANG::const_getWeather);
+  bool hideWeather = !config.store.showweather;
+  #if DSP_MODEL==DSP_ST7735
+    hideWeather = hideWeather || player.isRunning();
+  #endif
+  if(_weather) _weather->lock(hideWeather);
+  if(_weather && !hideWeather) _weather->setText(LANG::const_getWeather);
 
   if(_vuwidget) _vuwidget->lock();
   if(_rssi)     _setRSSI(WiFi.RSSI());
@@ -539,6 +543,18 @@ void Display::putRequest(displayRequestType_e type, int payload){
 }
 
 void Display::_layoutChange(bool played){
+  #if DSP_MODEL==DSP_ST7735
+    // The compact ST7735 layout shares one row between title2 and weather.
+    // During playback title2 owns the row; weather returns after playback.
+    if (_weather) {
+      if (played || !config.store.showweather) {
+        if (!_weather->locked()) _weather->lock();
+      } else {
+        _weather->unlock();
+      }
+    }
+  #endif
+
   if (config.store.vumeter) {
     if (played) {
       if (_vuwidget) _vuwidget->unlock();
@@ -587,6 +603,15 @@ void Display::_layoutChange(bool played){
       }
     }
   }
+
+  #if DSP_MODEL==DSP_ST7735
+    if (_weather && !played && config.store.showweather) {
+      if (timekeeper.weatherBuf && timekeeper.weatherBuf[0] != '\0')
+        _weather->setText(timekeeper.weatherBuf);
+      else
+        _weather->setText(LANG::const_getWeather);
+    }
+  #endif
 }
 
 
@@ -645,7 +670,11 @@ void Display::loop() {
           break;
         }
         case SHOWWEATHER: {
-          if(_weather) _weather->lock(!config.store.showweather);
+          bool hideWeather = !config.store.showweather;
+          #if DSP_MODEL==DSP_ST7735
+            hideWeather = hideWeather || player.isRunning();
+          #endif
+          if(_weather) _weather->lock(hideWeather);
           if(!config.store.showweather){
             /*#ifndef HIDE_IP
             if(_volip) _volip->setText(config.ipToStr(WiFi.localIP()), iptxtFmt);
@@ -655,14 +684,19 @@ void Display::loop() {
                 if(_volip) _volip->setText(config.ipToStr(WiFi.localIP()), iptxtFmt);
               #endif
             #endif
-          }else{
+          }else if(!hideWeather){
             if(_weather) _weather->setText(LANG::const_getWeather);
 //            _kickWeatherRefresh();
           }
           break;
         }
         case NEWWEATHER: {
-          if(_weather && timekeeper.weatherBuf) _weather->setText(timekeeper.weatherBuf);
+          #if DSP_MODEL==DSP_ST7735
+            if(_weather && !player.isRunning() && timekeeper.weatherBuf)
+              _weather->setText(timekeeper.weatherBuf);
+          #else
+            if(_weather && timekeeper.weatherBuf) _weather->setText(timekeeper.weatherBuf);
+          #endif
           //strcpy(timekeeper.weatherIcon, "50d"); // teszt 
           if(_weatherIcon) {
              _weatherIcon->setIcon(timekeeper.weatherIcon);
@@ -995,9 +1029,13 @@ void Display::wakeup(){
 void Display::_refreshWeatherUI() {
   if (!_weather) return;
 
-  _weather->lock(!config.store.showweather);
+  bool hideWeather = !config.store.showweather;
+  #if DSP_MODEL==DSP_ST7735
+    hideWeather = hideWeather || player.isRunning();
+  #endif
+  _weather->lock(hideWeather);
 
-  if (config.store.showweather) {
+  if (!hideWeather) {
     if (timekeeper.weatherBuf && timekeeper.weatherBuf[0] != '\0') {
       _weather->setText(timekeeper.weatherBuf);
     } else {
@@ -1017,8 +1055,12 @@ void Display::_refreshWeatherUI() {
 
 void Display::_kickWeatherRefresh() {
   if (!_weather) return;
-  _weather->lock(!config.store.showweather);
-  if (config.store.showweather) {
+  bool hideWeather = !config.store.showweather;
+  #if DSP_MODEL==DSP_ST7735
+    hideWeather = hideWeather || player.isRunning();
+  #endif
+  _weather->lock(hideWeather);
+  if (!hideWeather) {
     _weather->setAlign(weatherConf.widget.align);
     _weather->setText(LANG::const_getWeather);
     timekeeper.forceWeather = true;

@@ -52,6 +52,7 @@
 #define TFT_MISO  13*/
 
 #define BRIGHTNESS_PIN 14
+#define BRIGHTNESS_INVERTED true
 /*****************************************/
 // #define NEXTION_RX      15
 // #define NEXTION_TX     16
