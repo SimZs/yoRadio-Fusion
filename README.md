@@ -409,6 +409,19 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
 ---
 
 ## 📌 Version History / Changelog
+## v0.6.8 – 2026-08-18
+• Added ESP32-WROVER N16R8 support and compatible deep-sleep wake-up handling
+
+• Fixed weather configuration persistence for latitude, longitude and API key
+
+• Improved ST7735 and ST7789_76 layouts, scrolling behavior and widget overlap handling
+
+• Added optional inverted PWM support for active-low display backlights
+
+• Fixed WEB/DLNA playlist restoration after reboot
+
+• Fixed several small display configuration issues
+
 ## v0.6.7 – 2026-04-01
 
  • Short weather displays BUG fix 
