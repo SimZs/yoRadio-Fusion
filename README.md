@@ -55,6 +55,7 @@ https://github.com/e2002/yoradio
 - ST7789 240x240
 - ST7789 320x170
 - ST7735 160x128
+- NV3007 428x142
 
 [⬆ Back to top](#top)
 
@@ -409,6 +410,9 @@ Offline: https://github.com/andrasdaradici/YoRadio-Theme-Editor/releases
 ---
 
 ## 📌 Version History / Changelog
+## v0.6.9 – 2026-09-07
+• Add support for the NV3007 428x142 display
+
 ## v0.6.8 – 2026-08-18
 • Added ESP32-WROVER N16R8 support and compatible deep-sleep wake-up handling
 
