@@ -322,7 +322,7 @@ webserver.on("/get", HTTP_GET, [](AsyncWebServerRequest *request){
     auto &s = config.store;
     uint8_t ly = config.store.vuLayout;
     bool vuDefAvail =
-    #if (DSP_MODEL==DSP_GC9A01 || DSP_MODEL==DSP_GC9A01A || DSP_MODEL==DSP_GC9A01_I80 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7789_240)
+    #if (DSP_MODEL==DSP_GC9A01 || DSP_MODEL==DSP_GC9A01A || DSP_MODEL==DSP_GC9A01_I80 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7789_240 || DSP_MODEL==DSP_NV3007_142)
      false;
     #else
      true;
@@ -811,7 +811,10 @@ void NetServer::onWsMessage(void *arg, uint8_t *data, size_t len, uint8_t client
 
       // === VU Layout ===
       if (strcmp(_wscmd, "vuLayout") == 0) {
-        uint8_t valb = (uint8_t)atoi(_wsval);
+        uint8_t valb = (uint8_t)constrain(atoi(_wsval), 0, 3);
+#if (DSP_MODEL==DSP_GC9A01 || DSP_MODEL==DSP_GC9A01A || DSP_MODEL==DSP_GC9A01_I80 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7789_240 || DSP_MODEL==DSP_NV3007_142)
+        if (valb == 0) valb = 2;
+#endif
         config.saveValue(&config.store.vuLayout, valb);
         return;
       }

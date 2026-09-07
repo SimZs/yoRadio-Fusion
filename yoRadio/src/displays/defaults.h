@@ -402,6 +402,86 @@
   #define VU_DEF_LHGT_STR 15
   #define VU_DEF_LHGT_BBX 15
   #define VU_DEF_LHGT_STD 25
+// --------------------------------------------------------------------------------------428x142
+#elif DSP_MODEL==DSP_NV3007_142
+  #define VU_DEF_HGT_DEF  35
+  #define VU_DEF_BARS_DEF 10
+  #define VU_DEF_GAP_DEF  2
+  #define VU_DEF_FADE_DEF 2
+  
+  #define VU_DEF_HGT_STR  9
+  #define VU_DEF_BARS_STR 24
+  #define VU_DEF_GAP_STR  2
+  #define VU_DEF_FADE_STR 5
+  
+  #define VU_DEF_HGT_BBX  9
+  #define VU_DEF_BARS_BBX 24
+  #define VU_DEF_GAP_BBX  2
+  #define VU_DEF_FADE_BBX 5
+  
+  #define VU_DEF_HGT_STD  4
+  #define VU_DEF_BARS_STD 36
+  #define VU_DEF_GAP_STD  2
+  #define VU_DEF_FADE_STD 3
+
+// Smoothing (percent)
+  #define VU_DEF_AUP_DEF  30  // 0.40
+  #define VU_DEF_ADN_DEF  6  // 0.15
+  #define VU_DEF_AUP_STR  30  // 0.25
+  #define VU_DEF_ADN_STR  6  // 0.07
+  #define VU_DEF_AUP_BBX  30  // 0.25
+  #define VU_DEF_ADN_BBX  6  // 0.07
+  #define VU_DEF_AUP_STD  24  // 0.10
+  #define VU_DEF_ADN_STD  5  // 0.05
+
+// Peak p_up / p_down (percent)
+  #define VU_DEF_PUP_DEF  90  // 0.90
+  #define VU_DEF_PDN_DEF   1  // 0.01
+  #define VU_DEF_PUP_STR  90
+  #define VU_DEF_PDN_STR   1
+  #define VU_DEF_PUP_BBX  90
+  #define VU_DEF_PDN_BBX   1
+  #define VU_DEF_PUP_STD  90
+  #define VU_DEF_PDN_STD   1
+
+// Dymanics
+  #define VU_DEF_EXPO_DEF   50  // 0.40
+  #define VU_DEF_EXPO_STR  140  // 0.25
+  #define VU_DEF_EXPO_BBX  100  // 0.25
+  #define VU_DEF_EXPO_STD  100  // 0.10
+  #define VU_DEF_FLOOR_DEF  95  // 0.40
+  #define VU_DEF_FLOOR_STR  50  // 0.25
+  #define VU_DEF_FLOOR_BBX  50  // 0.25
+  #define VU_DEF_FLOOR_STD  30  // 0.10
+  #define VU_DEF_CEIL_DEF  100  // 0.40
+  #define VU_DEF_CEIL_STR   95  // 0.25
+  #define VU_DEF_CEIL_BBX   95  // 0.25
+  #define VU_DEF_CEIL_STD   95  // 0.10
+  #define VU_DEF_GAIN_DEF   86  // 0.40
+  #define VU_DEF_GAIN_STR  120  // 0.25
+  #define VU_DEF_GAIN_BBX  110  // 0.25
+  #define VU_DEF_GAIN_STD  100  // 0.10
+  #define VU_DEF_KNEE_DEF   10  // 0.40
+  #define VU_DEF_KNEE_STR   10  // 0.25
+  #define VU_DEF_KNEE_BBX    5  // 0.25
+  #define VU_DEF_KNEE_STD    3  // 0.10
+
+// Band indexes
+  #define VU_DEF_MID_PCT_DEF 60
+  #define VU_DEF_MID_PCT_STR 60
+  #define VU_DEF_MID_PCT_BBX 60
+  #define VU_DEF_MID_PCT_STD 60
+
+  #define VU_DEF_HIGH_PCT_DEF 80
+  #define VU_DEF_HIGH_PCT_STR 80
+  #define VU_DEF_HIGH_PCT_BBX 80
+  #define VU_DEF_HIGH_PCT_STD 80
+
+// Label heights
+  #define VU_DEF_LHGT_DEF 10
+  #define VU_DEF_LHGT_STR 20
+  #define VU_DEF_LHGT_BBX 20
+  #define VU_DEF_LHGT_STD 25
 // --------------------------------------------------------------------------------------284x76
 #elif DSP_MODEL==DSP_ST7789_76
   #define VU_DEF_HGT_DEF  7

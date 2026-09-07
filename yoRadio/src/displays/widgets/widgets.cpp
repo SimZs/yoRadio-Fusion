@@ -1467,7 +1467,7 @@ void ProgressWidget::loop() {
 void ClockWidget::init(WidgetConfig wconf, uint16_t fgcolor, uint16_t bgcolor){
   Widget::init(wconf, fgcolor, bgcolor);
   _timeheight = _textHeight();
-  _fullclock = TIME_SIZE>35 || DSP_MODEL==DSP_ILI9225 || DSP_MODEL==DSP_ST7789_170 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7735 || DSP_MODEL == DSP_ST7789 || DSP_MODEL==DSP_ILI9341;
+  _fullclock = TIME_SIZE>35 || DSP_MODEL==DSP_ILI9225 || DSP_MODEL==DSP_ST7789_170 || DSP_MODEL==DSP_NV3007_142 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7735 || DSP_MODEL == DSP_ST7789 || DSP_MODEL==DSP_ILI9341;
 /*#if DSP_MODEL == DSP_ST7789 || DSP_MODEL==DSP_ILI9341
     if (config.store.vuLayout != 0) {
         _fullclock = false;

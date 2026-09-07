@@ -613,7 +613,10 @@ void handleSetVuLayout(AsyncWebServerRequest *request) {
     request->send(400, "text/plain", "Missing value param");
     return;
   }
-  int v = request->getParam("value")->value().toInt();
+  uint8_t v = (uint8_t)constrain(request->getParam("value")->value().toInt(), 0, 3);
+#if (DSP_MODEL==DSP_GC9A01 || DSP_MODEL==DSP_GC9A01A || DSP_MODEL==DSP_GC9A01_I80 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7789_240 || DSP_MODEL==DSP_NV3007_142)
+  if (v == 0) v = 2;
+#endif
   config.store.vuLayout = v;
   config.eepromWrite(EEPROM_START, config.store);
   display.putRequest(DSP_RECONF, 0);
@@ -647,7 +650,7 @@ void handleSetVu(AsyncWebServerRequest *request) {
     return;
   } else if (name == "layout") {
     uint8_t v = (uint8_t)constrain(value.toInt(), 0, 3);
-#if (DSP_MODEL==DSP_GC9A01 || DSP_MODEL==DSP_GC9A01A || DSP_MODEL==DSP_GC9A01_I80 || DSP_MODEL==DSP_ST7789_76)
+#if (DSP_MODEL==DSP_GC9A01 || DSP_MODEL==DSP_GC9A01A || DSP_MODEL==DSP_GC9A01_I80 || DSP_MODEL==DSP_ST7789_76 || DSP_MODEL==DSP_ST7789_240 || DSP_MODEL==DSP_NV3007_142)
     if (v == 0) v = 2;
 #endif
     st.vuLayout = v;

@@ -130,6 +130,12 @@ if (store.lastPlayedSource > PL_SRC_DLNA)
   } else {
     while (store.version != CONFIG_VERSION) _setupVersion();
   }
+#if (DSP_MODEL == DSP_GC9A01) || (DSP_MODEL == DSP_GC9A01A) || (DSP_MODEL == DSP_GC9A01_I80) || (DSP_MODEL == DSP_ST7789_76) || (DSP_MODEL == DSP_ST7789_240) || (DSP_MODEL == DSP_NV3007_142)
+  // These displays do not have enough vertical space for the Default VU layout.
+  if (store.vuLayout == 0 || store.vuLayout > 3) {
+    saveValue(&store.vuLayout, (uint8_t)2);
+  }
+#endif
   BOOTLOG("CONFIG_VERSION\t%d", store.version);
 
   store.play_mode = store.play_mode & 0b11;
@@ -865,7 +871,7 @@ void Config::setDefaults() {
   store.flipscreen=false;
   store.invertdisplay=false;
   store.numplaylist=false;
-#if (DSP_MODEL == DSP_GC9A01) || (DSP_MODEL == DSP_GC9A01A) || (DSP_MODEL == DSP_GC9A01_I80) || (DSP_MODEL==DSP_ST7789_76) || (DSP_MODEL==DSP_ST7789_240)
+#if (DSP_MODEL == DSP_GC9A01) || (DSP_MODEL == DSP_GC9A01A) || (DSP_MODEL == DSP_GC9A01_I80) || (DSP_MODEL==DSP_ST7789_76) || (DSP_MODEL==DSP_ST7789_240) || (DSP_MODEL==DSP_NV3007_142)
   store.vuLayout = 2;   // ------ WEB UI STYLE: BoomBox-----
 #else
   store.vuLayout = 0;   // ------ WEB UI STYLE: Default-----

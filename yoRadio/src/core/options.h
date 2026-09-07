@@ -58,6 +58,7 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 #define DSP_GC9A01      29    // 240x240  1.28' https://aliexpress.com/item/1005004069703494.html?sku_id=12000029869654615
 #define DSP_NV3041A     30    // 480x272  4.3'  https://aliexpress.com/item/1005006729657546.html
 #define DSP_GC9A01_I80  31    // 240x240  1.28' https://aliexpress.com/item/1005004069703494.html?sku_id=12000029869654615
+#define DSP_NV3007_142  32    // 428x142  2.79' NV3007
 #define DSP_CUSTOM      101   // your display
 
 #ifndef DSP_MODEL

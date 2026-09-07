@@ -36,6 +36,11 @@
   #define PSFBUFFER
   #include "displayST7789.h"
 
+#elif DSP_MODEL==DSP_NV3007_142
+  #define TIME_SIZE           35
+  #define PSFBUFFER
+  #include "displayNV3007.h"
+
 #elif DSP_MODEL==DSP_ST7789_76 // https://k210.org/images/content/uploads/yoradio/ST7789_76.mp4
   #define TIME_SIZE           19
   #define PSFBUFFER
